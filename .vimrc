@@ -1,6 +1,8 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
-set tabstop=2 softtabstop=0 noexpandtab shiftwidth=2 smarttab
+set tabstop=2 expandtab shiftwidth=2
+syntax on
+autocmd BufNewFile,BufRead *.ts setlocal filetype=typescript
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -25,24 +27,19 @@ Plugin 'ctrlpvim/ctrlp.vim'
 " Emmet abbreviation expander
 Plugin 'mattn/emmet-vim'
 
-Plugin 'leafgarland/typescript-vim'
-
-"Typescript IDE features
-Plugin 'Quramy/tsuquyomi'
-
-"syntax checking
 Plugin 'vim-syntastic/syntastic'
-"Start - Integration with syntastic and tsuquyomi
 
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+Plugin 'Quramy/tsuquyomi'
 let g:tsuquyomi_disable_quickfix = 1
-let g:syntastic_typescript_checkers = ['tsuquyomi'] 
+let g:syntastic_typescript_checkers = ['tsuquyomi']
 
-"End - Integration with syntastic and tsuquyomi
+Plugin 'leafgarland/typescript-vim'
+"START: Typescript-vim options
+let g:typescript_compiler_binary = 'tsc'
+let g:typescript_compiler_options = ''
+autocmd QuickFixCmdPost [^l]* nested cwindow
+autocmd QuickFixCmdPost    l* nested lwindow
+"END: Typescript-vim options
 
 Plugin 'jiangmiao/auto-pairs'
 
